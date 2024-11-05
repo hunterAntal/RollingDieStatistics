@@ -7,6 +7,7 @@ void rollDie(int n) {
     // Hold pick from array
     int frequencyRolled = 0;
     float percent = 0.0;
+    int hold = 0;
     int frequencyArray[ARRAYSIZE+1] = {0,0,0,0,0,0,0};
 
     // srand(time(NULL));   // Initialization, should only be called once.
@@ -22,6 +23,7 @@ void rollDie(int n) {
         frequencyArray[a]++;
         //printf("You rolled two die %d times: %d & %d\n", n, a, b);
     }
+
     // print out array
     for (int i = 1; i < ARRAYSIZE+1; i++) {
         percent = (float)frequencyArray[i];
@@ -31,25 +33,43 @@ void rollDie(int n) {
 
     }
 
-    // print out graph
-    for (int i = 1; i < ARRAYSIZE+1; i++) {
-        printf("%d: ", i);
-        float sqrtFrequency = sqrt(frequencyArray[i]);
-        for (int j = 1; j <= sqrtFrequency; j++) {
-            printf("*");
+    // print out SQRT graph if n > 50
+    if (n >= 50) {
+        for (int i = 1; i < ARRAYSIZE+1; i++) {
+            printf("%d: ", i);
+            float sqrtFrequency = sqrt(frequencyArray[i]);
+            for (int j = 1; j <= sqrtFrequency; j++) {
+                printf("*");
+            }
+            printf("\n");
         }
-        printf("\n");
+    } else { // print out regular graph
+        for (int i = 1; i < ARRAYSIZE+1; i++) {
+            printf("%d: ", i);
+
+            for (int j = 1; j <= frequencyArray[i]; j++) {
+                printf("*");
+            }
+            printf("\n");
+        }
     }
+
 
 
 }
 
 
 int main(void) {
-    printf("Hello, World!\n");
-    int RollDicXTimes = 10;
-    printf("Roll die %d times\n", RollDicXTimes);
-    rollDie(RollDicXTimes);
+    printf("Welcome to Gambling Simulator!\n");
+    int RollDicXTimes = 0;
+    // Loop the UI
+    while (1) {
+        printf("How many times do you want to roll the die?: ");
+        scanf("%d", &RollDicXTimes);
+
+        rollDie(RollDicXTimes);
+        printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    }
     return 0;
 }
 
